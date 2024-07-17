@@ -1,0 +1,29 @@
+.board{
+    height: 600px;
+    width: 564px;
+    display: flex;
+    margin:auto;
+    gap: 10px;
+    /*flex-direction: column;*/
+    padding: 200px;
+    flex-wrap: wrap;
+}
+
+.row1, .row2, .row3 {
+    display: flex;
+    gap: 10px; /* Espaciado entre cuadrados */
+}
+
+.squares{
+    height: 180px;
+    width: 180px;
+    background-color: #1f3540;
+    display: flex;
+    border-radius: 12px;
+    padding: 10px;
+    margin: auto;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: 70px;
+}
