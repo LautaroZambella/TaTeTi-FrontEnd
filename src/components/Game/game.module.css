@@ -1,3 +1,11 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    padding-bottom: 20px;
+}
+
 .board{
     height: 600px;
     width: 564px;
@@ -5,7 +13,7 @@
     margin:auto;
     gap: 10px;
     /*flex-direction: column;*/
-    padding: 200px;
+    padding: 100px;
     flex-wrap: wrap;
 }
 
@@ -26,4 +34,14 @@
     justify-content: center;
     align-items: center;
     font-size: 70px;
+}
+
+.container button{
+    width: max-content;
+    padding: 16px;
+    border-radius: 32px;
+    border: solid 1px #242424;
+    background-color: #636363;
+    color: #FFFDD0;
+    cursor: pointer;
 }

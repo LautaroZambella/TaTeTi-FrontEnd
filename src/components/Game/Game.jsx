@@ -24,6 +24,7 @@ const Game = () => {
 
     const reset = () =>{
         setPosicion (["","","","","","","","",""])
+        setTurnoPlayer1(true)
     }
 
 
