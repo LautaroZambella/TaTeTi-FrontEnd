@@ -1,5 +1,6 @@
 import classes from "./game.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Socket } from "../../socket.js"
 
 const Game = () => {
 
@@ -7,6 +8,7 @@ const Game = () => {
     const [posicion, setPosicion] = useState(["","","","","","","","",""])
 
     const makeAplay =  (index) => {
+        sendData(index)
         console.log("In the function")
         if (posicion[index] === "") {
             const newPosicion = [...posicion]
@@ -20,11 +22,15 @@ const Game = () => {
             setPosicion(newPosicion)
             setTurnoPlayer1(!turnoPlayer1)
         }
-     }
+    }
 
     const reset = () =>{
         setPosicion (["","","","","","","","",""])
         setTurnoPlayer1(true)
+    }
+
+    const sendData = (index) =>{
+        Socket.emit("position", index)
     }
 
 
