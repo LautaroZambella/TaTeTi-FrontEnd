@@ -6,20 +6,31 @@ import { Socket } from './socket.js'
 import './App.css'
 
 function App() {
+ const [mostrar, setMostar] = useState("")
 
   useEffect(()=>{
     Socket.emit("inicio", "llegue");
 
     Socket.on('N_jugador', (data)=>{
-        console.log(data);
+      console.log(data);
     });
+    try{
+      Socket.on('N_jugador', (data) => {
+        console.log(data)
+        setMostar(data)
+      })
+    } catch(error) {
+      console.log(error)
+    }
   }, [])
+
+  
 
   return (
     <>
       <div className='cuerpo'>
         <Header />
-        <Game />
+        <Game datas={mostrar}/>
         <Footer />
       </div>
     </>

@@ -1,11 +1,13 @@
 import classes from "./game.module.css"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { Socket } from "../../socket.js"
 
-const Game = () => {
+const Game = ({datas}) => {
 
     const [turnoPlayer1, setTurnoPlayer1] = useState(true)
     const [posicion, setPosicion] = useState(["","","","","","","","",""])
+
+
 
     const makeAplay =  (index) => {
         sendData(index)
@@ -53,7 +55,7 @@ const Game = () => {
                     <div className={`${classes.squares}`} onClick={()=> makeAplay(8)}><p>{posicion[8]}</p></div>
                 </div>
             </div>
-            <button onClick={()=> reset()}>Resetear</button>
+            <button onClick={()=> reset()}>Resetear {datas}</button>
         </div>
     )
 }
