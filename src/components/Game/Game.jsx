@@ -10,7 +10,7 @@ const Game = ({datas}) => {
 
 
     const makeAplay =  (index) => {
-        sendData(index)
+        Socket.emit("position", index)
         console.log("In the function")
         if (posicion[index] === "") {
             const newPosicion = [...posicion]
@@ -29,11 +29,9 @@ const Game = ({datas}) => {
     const reset = () =>{
         setPosicion (["","","","","","","","",""])
         setTurnoPlayer1(true)
+        Socket.emit("reseteo", datas)
     }
 
-    const sendData = (index) =>{
-        Socket.emit("position", index)
-    }
 
 
     return(
