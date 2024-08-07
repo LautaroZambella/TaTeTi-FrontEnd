@@ -1,34 +1,42 @@
 import classes from "./game.module.css"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Socket } from "../../socket.js"
 
-const Game = ({datas}) => {
+const Game = ({datas, turno}) => {
 
-    const [turnoPlayer1, setTurnoPlayer1] = useState(true)
+    const [turnoPlayer, setTurnoPlayer] = useState(turno)
     const [posicion, setPosicion] = useState(["","","","","","","","",""])
+    const [render, setRender] = useState(0)
 
+    useEffect(()=>{
+        try{
+          Socket.on('actualizacion', (tabla) => {
+            console.log(tabla)
+            setPosicion(tabla)
+          })
+        } catch(error) {
+          console.log(error)
+        }
+    },[])
 
+    // useEffect(()=>{
+    //     if (datas == "2") setTurnoPlayer(false)
+    //     console.log("datas: " + datas);
+    //     console.log(turnoPlayer + " dentro del if de turno para datas = 2");
+        
+    // },[])
 
     const makeAplay =  (index) => {
-        Socket.emit("position", index)
-        console.log("In the function")
-        if (posicion[index] === "") {
-            const newPosicion = [...posicion]
-            if (turnoPlayer1) {
-                newPosicion[index] = "X"
-                console.log("Turno X")
-            } else {
-                newPosicion[index] = "O"
-                console.log("Turno O")
-            }
-            setPosicion(newPosicion)
-            setTurnoPlayer1(!turnoPlayer1)
+        if (posicion[index] === "" && turnoPlayer) {
+            Socket.emit("position", index)
+            console.log(turnoPlayer + " " + index)
+            setTurnoPlayer(!turnoPlayer)
         }
     }
 
     const reset = () =>{
         setPosicion (["","","","","","","","",""])
-        setTurnoPlayer1(true)
+        setTurnoPlayer(true)
         Socket.emit("reseteo", datas)
     }
 

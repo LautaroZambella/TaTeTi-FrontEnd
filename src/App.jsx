@@ -6,31 +6,39 @@ import { Socket } from './socket.js'
 import './App.css'
 
 function App() {
- const [mostrar, setMostar] = useState("")
+ const [mostrar, setMostrar] = useState("")
 
-  useEffect(()=>{
-    Socket.emit("inicio", "llegue");
+ let turnoPlayer = true;
+  
+ useEffect(() => {
+   Socket.emit("inicio", "llegue");
 
-    Socket.on('N_jugador', (data)=>{
-      console.log(data);
-    });
-    try{
-      Socket.on('N_jugador', (data) => {
-        console.log(data)
-        setMostar(data)
-      })
-    } catch(error) {
-      console.log(error)
-    }
-  }, [])
+   try {
+     Socket.on('N_jugador', (data) => {
+       console.log(data);
+       setMostrar(data);
+     });
+   } catch (error) {
+     console.log(error);
+   }
+ }, []);
 
+ useEffect(() => {
+   console.log(mostrar);
+   if (mostrar === "2") {
+     turnoPlayer = false;
+   }
+   console.log(turnoPlayer);
+ }, [mostrar]);
+
+   
   
 
   return (
     <>
       <div className='cuerpo'>
         <Header />
-        <Game datas={mostrar}/>
+        <Game datas={mostrar} turno = {turnoPlayer}/>
         <Footer />
       </div>
     </>
