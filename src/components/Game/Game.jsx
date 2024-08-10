@@ -1,12 +1,12 @@
 import classes from "./game.module.css"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { Socket } from "../../socket.js"
 
-const Game = ({datas, turno}) => {
+const Game = ({datas}) => {
 
-    const [turnoPlayer, setTurnoPlayer] = useState(turno)
     const [posicion, setPosicion] = useState(["","","","","","","","",""])
-    const [render, setRender] = useState(0)
+
+    const turno = useRef(true)
 
     useEffect(()=>{
         try{
@@ -19,18 +19,22 @@ const Game = ({datas, turno}) => {
         }
     },[])
 
-    // useEffect(()=>{
-    //     if (datas == "2") setTurnoPlayer(false)
-    //     console.log("datas: " + datas);
-    //     console.log(turnoPlayer + " dentro del if de turno para datas = 2");
-        
-    // },[])
+    console.log(turno)
+
+    useEffect(()=>{
+        if (datas == 2) {
+            turno.current = false
+            console.log(turno)
+        }
+    }, [datas])
+
+    console.log(turno)
 
     const makeAplay =  (index) => {
-        if (posicion[index] === "" && turnoPlayer) {
+        if (posicion[index] === "" && turno.current == true) {
             Socket.emit("position", index)
             console.log(turnoPlayer + " " + index)
-            setTurnoPlayer(!turnoPlayer)
+            turno.current = !turno.current
         }
     }
 
@@ -39,9 +43,6 @@ const Game = ({datas, turno}) => {
         setTurnoPlayer(true)
         Socket.emit("reseteo", datas)
     }
-
-
-
     return(
         <div className={`${classes.container}`}>
             <div className={`${classes.board}`}>
