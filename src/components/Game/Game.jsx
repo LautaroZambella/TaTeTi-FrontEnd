@@ -9,32 +9,53 @@ const Game = ({datas}) => {
     const turno = useRef(true)
 
     useEffect(()=>{
-        try{
-          Socket.on('actualizacion', (tabla) => {
-            console.log(tabla)
-            setPosicion(tabla)
-          })
-        } catch(error) {
-          console.log(error)
-        }
-    },[])
-
-    console.log(turno)
-
-    useEffect(()=>{
         if (datas == 2) {
             turno.current = false
             console.log(turno)
+            console.log(datas)
         }
     }, [datas])
+
+    useEffect(()=>{
+        try{
+            const actualizar = (tabla) =>{
+                console.log(tabla)
+                setPosicion(tabla)
+                turno.current = !turno.current
+                console.log("turno.current: ", turno.current)
+            }
+
+            Socket.on('actualizacion', actualizar)
+
+            return () => {
+                Socket.off('actualizacion', actualizar)
+            }
+        } catch(error) {
+            console.log(error)
+        }
+    },[])
+
+    // useEffect(()=>{
+    //     try{
+    //       Socket.on('actualizacion', (tabla) => {
+    //         console.log(tabla)
+    //         setPosicion(tabla)
+    //         turno.current = !turno.current
+    //         console.log("turno.current: ", turno.current)
+    //       })
+    //     } catch(error) {
+    //       console.log(error)
+    //     }
+    // },[])
+
+    console.log(turno)
 
     console.log(turno)
 
     const makeAplay =  (index) => {
         if (posicion[index] === "" && turno.current == true) {
             Socket.emit("position", index)
-            console.log(turnoPlayer + " " + index)
-            turno.current = !turno.current
+            console.log(turno.current)
         }
     }
 

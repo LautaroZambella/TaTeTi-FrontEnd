@@ -13,11 +13,11 @@ function App() {
 
    try {
      Socket.on('N_jugador', (data) => {
-       console.log(data);
+      //  console.log(data);
        setMostrar(data);
-       console.log(typeof data)
-       console.log(typeof mostrar)
-       console.log(mostrar)
+      //  console.log(typeof data)
+      //  console.log(typeof mostrar)
+      //  console.log(mostrar)
      });
    } catch (error) {
      console.log(error);
