@@ -5,6 +5,7 @@ import Game from './components/Game/Game'
 import { Socket } from './socket.js'
 import './App.css'
 
+// HOLA
 function App() {
  const [mostrar, setMostrar] = useState()
 //  const [turnoPlayer, setTurnoPlayer] = useState(true)
