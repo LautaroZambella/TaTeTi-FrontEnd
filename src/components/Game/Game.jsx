@@ -5,6 +5,7 @@ import { Socket } from "../../socket.js"
 const Game = ({datas}) => {
 
     const [posicion, setPosicion] = useState(["","","","","","","","",""])
+    const [gameFinished, setGameFinished] = useState(false)
 
     const turno = useRef(true)
 
@@ -26,6 +27,7 @@ const Game = ({datas}) => {
             }
 
             Socket.on('actualizacion', actualizar)
+            Socket.on('fin', paquete)
 
             return () => {
                 Socket.off('actualizacion', actualizar)
@@ -61,12 +63,12 @@ const Game = ({datas}) => {
 
     const reset = () =>{
         setPosicion (["","","","","","","","",""])
-        setTurnoPlayer(true)
         Socket.emit("reseteo", datas)
+        setGameFinished(!gameFinished)
     }
     return(
         <div className={`${classes.container}`}>
-            <div className={`${classes.board}`}>
+            <div className={`${classes.board} ${gameFinished ? classes.test : ""}`}>
                 <div className={`${classes.row1}`}>
                     <div className={`${classes.squares}`} onClick={()=> makeAplay(0)}><p>{posicion[0]}</p></div>
                     <div className={`${classes.squares}`} onClick={()=> makeAplay(1)}><p>{posicion[1]}</p></div>

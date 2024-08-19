@@ -12,9 +12,21 @@
     display: flex;
     margin:auto;
     gap: 10px;
-    /*flex-direction: column;*/
     padding: 100px;
     flex-wrap: wrap;
+}
+
+.test{
+    position: relative;
+}
+
+.test::after{
+    content: "";
+    position: absolute;
+    height: 1024px;
+    width: 8px;
+    border-radius: 4px;
+    background: linear-gradient(rgb(255, 0, 0), rgb(0, 0, 255));
 }
 
 .row1, .row2, .row3 {
