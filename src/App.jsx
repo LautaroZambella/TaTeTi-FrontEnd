@@ -13,13 +13,19 @@ function App() {
    Socket.emit("inicio", "llegue");
 
    try {
-     Socket.on('N_jugador', (data) => {
-      //  console.log(data);
-       setMostrar(data);
-      //  console.log(typeof data)
-      //  console.log(typeof mostrar)
-      //  console.log(mostrar)
-     });
+      const N_jugador_CB = (data) => {
+        //  console.log(data);
+        setMostrar(data);
+        //  console.log(typeof data)
+        //  console.log(typeof mostrar)
+        //  console.log(mostrar)
+      }
+    
+      Socket.on('N_jugador', N_jugador_CB);
+
+      return () => {
+        Socket.off('N_jugador', N_jugador_CB)
+    }
    } catch (error) {
      console.log(error);
    }

@@ -25,12 +25,19 @@ const Game = ({datas}) => {
                 turno.current = !turno.current
                 console.log("turno.current: ", turno.current)
             }
+            const terminar = (tabla) =>{
+                console.log(tabla)
+                setPosicion(tabla)
+                turno.current = !turno.current
+                console.log("turno.current: ", turno.current)
+            }
 
-            Socket.on('actualizacion', actualizar)
+            Socket.on('actualizacion', terminar)
             Socket.on('fin', paquete)
 
             return () => {
                 Socket.off('actualizacion', actualizar)
+                Socket.off('fin', terminar)
             }
         } catch(error) {
             console.log(error)
