@@ -37,18 +37,6 @@ const Game = ({datas}) => {
         }
     },[])
 
-    // useEffect(()=>{
-    //     try{
-    //       Socket.on('actualizacion', (tabla) => {
-    //         console.log(tabla)
-    //         setPosicion(tabla)
-    //         turno.current = !turno.current
-    //         console.log("turno.current: ", turno.current)
-    //       })
-    //     } catch(error) {
-    //       console.log(error)
-    //     }
-    // },[])
 
     console.log(turno)
 
@@ -68,7 +56,7 @@ const Game = ({datas}) => {
     }
     return(
         <div className={`${classes.container}`}>
-            <div className={`${classes.board} ${gameFinished ? classes.test : ""}`}>
+            <div className={`${classes.board} ${gameFinished ? classes.test : classes.testeo}`}>
                 <div className={`${classes.row1}`}>
                     <div className={`${classes.squares}`} onClick={()=> makeAplay(0)}><p>{posicion[0]}</p></div>
                     <div className={`${classes.squares}`} onClick={()=> makeAplay(1)}><p>{posicion[1]}</p></div>

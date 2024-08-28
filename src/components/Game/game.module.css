@@ -16,22 +16,30 @@
     flex-wrap: wrap;
 }
 
-.test{
+.test, .testeo{
     position: relative;
 }
 
-.test::after{
+.test::after, .testeo::after{
     content: "";
     position: absolute;
-    height: 1024px;
+    height: 800px;
     width: 8px;
     border-radius: 4px;
     background: linear-gradient(rgb(255, 0, 0), rgb(0, 0, 255));
 }
 
+.test::after{
+    left: 195px;
+}
+
+.testeo::after{
+    left: 407px;
+}
+
 .row1, .row2, .row3 {
     display: flex;
-    gap: 10px; /* Espaciado entre cuadrados */
+    gap: 10px; 
 }
 
 .squares{
